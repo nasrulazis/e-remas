@@ -21,8 +21,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::group(['prefix' => 'admin'],function(){
-    Route::get('/', 'adminController@index')->name('admin.home');
-    Route::get('/login', 'AuthAdmin\LoginController@showLoginForm')->name('admin.login');
-    Route::post('/login', 'AuthAdmin\LoginController@login')->name('admin.login.submit');
-});
+Route::get('/admin', 'adminController@index')->name('admin.home');
+Route::get('/adminkegiatan', 'adminController@kegiatan')->name('admin.kegiatan');
+Route::get('/adminlogin', 'AuthAdmin\LoginController@showLoginForm')->name('admin.login');
+Route::post('/adminlogin', 'AuthAdmin\LoginController@login')->name('admin.login.submit');
+Route::get('/adminregister', 'AuthAdmin\RegisterController@showRegistrationForm')->name('admin.register');
+Route::post('/adminregister', 'AuthAdmin\RegisterController@register')->name('admin.register.submit');

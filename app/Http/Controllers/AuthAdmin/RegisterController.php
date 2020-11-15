@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\AuthAdmin;
 
-use App\anggota;
+use App\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Foundation\AuthAdmin\RegistersAdmin;
 
 class RegisterController extends Controller
 {
@@ -21,7 +21,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersAdmin;
 
     /**
      * Where to redirect users after registration.
@@ -37,7 +37,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest:admin');
     }
 
     /**
@@ -49,7 +49,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'nama_anggota' => ['required', 'string', 'max:255','min:4'],
+            'nama_admin' => ['required', 'string', 'max:255','min:4'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:anggota'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -63,8 +63,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return anggota::create([
-            'nama_anggota' => $data['nama_anggota'],
+        return admin::create([
+            'nama_admin' => $data['nama_admin'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'alamat'=> NULL,
