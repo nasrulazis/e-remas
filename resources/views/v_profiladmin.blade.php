@@ -15,12 +15,12 @@
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title text-uppercase font-medium font-14">Dashboard</h4>
+                        <h4 class="page-title text-uppercase font-medium font-14">Profil</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <div class="d-md-flex">
                             <ol class="breadcrumb ml-auto">
-                                <li><a href="#">Dashboard</a></li>
+                                <li><a href="#">Profil</a></li>
                             </ol>
                             
                         </div>
@@ -35,17 +35,50 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Three charts -->
-                <!-- ============================================================== -->
-                <div class="row justify-content-start">
-                    <a href="{{route('admin.kegiatan')}}"><button type="button" class="btn btn-primary btn-lg">Kegiatan</button></a>
-                </div>
-                <!-- ============================================================== -->
-                <!-- PRODUCTS YEARLY SALES -->
-                <!-- ============================================================== -->
-                             
-                    <!-- /.col -->
+                
+            <div class="row">                    
+                    <!-- Column -->
+                    <div class="col-lg-8 col-xlg-9 col-md-12">
+                        <div class="card">
+                            <div class="card-body"> 
+                                <form action="{{route('admin.editprofil')}}">
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label d-flex justify-content-between pr-1"><span>Nama</span>  <span>:</span></label>
+                                        
+                                        <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="nama" value="{{Auth::user()->nama_admin}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label d-flex justify-content-between pr-1"><span>Email</span>  <span>:</span></label>
+                                        <div class="col-sm-10 ">
+                                        <input type="text" class="form-control" id="nama" value="{{Auth::user()->email}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label d-flex justify-content-between pr-1"><span>Alamat</span>  <span>:</span></label>
+                                        <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="nama" value="{{Auth::user()->alamat}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label d-flex justify-content-between pr-1"><span>No Hp</span>  <span>:</span></label>                                   
+                                        <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="nama" value="{{Auth::user()->no_hp}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-12 d-flex justify-content-end">
+                                            <input type="submit" class="form-control w-25 btn btn-primary" value="Edit">
+                                        </div>
+                                    </div>
+                                </form>                                                         
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                </div>                 
+                
                 
             </div>
             <!-- ============================================================== -->

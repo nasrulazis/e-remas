@@ -15,12 +15,12 @@
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title text-uppercase font-medium font-14">Dashboard</h4>
+                        <h4 class="page-title text-uppercase font-medium font-14">Edit Kegiatan</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <div class="d-md-flex">
                             <ol class="breadcrumb ml-auto">
-                                <li><a href="#">Dashboard</a></li>
+                                <li><a href="#">Kegiatan</a></li>
                             </ol>
                             
                         </div>
@@ -35,17 +35,63 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Three charts -->
-                <!-- ============================================================== -->
-                <div class="row justify-content-start">
-                    <a href="{{route('admin.kegiatan')}}"><button type="button" class="btn btn-primary btn-lg">Kegiatan</button></a>
-                </div>
-                <!-- ============================================================== -->
-                <!-- PRODUCTS YEARLY SALES -->
-                <!-- ============================================================== -->
-                             
-                    <!-- /.col -->
+                
+            <div class="row">                    
+                    <!-- Column -->
+                    <div class="col-lg-8 col-xlg-9 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                @foreach($kegiatan as $key => $data)
+                                <form class="form-horizontal form-material" action="{{route('admin.updatekegiatan')}}?id={{$data->id_kegiatan}}" method="post">
+                                @csrf
+                                    <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0">Nama Kegiatan</label>
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <input type="text" placeholder=""
+                                                class="form-control p-0 border-0" name="nama_kegiatan" value="{{$data->nama_kegiatan}}"> </div>
+                                    </div>
+                                    
+                                    <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0">Deskripsi Kegiatan</label>
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <input type="text" class="form-control border-0" name="deskripsi_kegiatan" value="{{$data->deskripsi_kegiatan}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0">Tempat Kegiatan</label>
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <input type="text" placeholder=""
+                                                class="form-control p-0 border-0" name="tempat_kegiatan" value="{{$data->tempat_kegiatan}}">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0">Tanggal Kegiatan</label>
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <input type="date" class="form-control border-0" name="tanggal_kegiatan" value="{{$data->tanggal_kegiatan}}">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0">Waktu Kegiatan</label>
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <input type="time" class="form-control border-0" name="waktu_kegiatan" value="{{$data->waktu_kegiatan}}">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group mb-4">
+                                        <div class="col-sm-12">
+                                            <input type="submit" class="btn btn-success" value="Simpan Kegiatan">                                            
+                                        </div>
+                                    </div>
+                                </form>
+                                    @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                </div>                 
+                
                 
             </div>
             <!-- ============================================================== -->

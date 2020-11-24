@@ -15,7 +15,7 @@
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title text-uppercase font-medium font-14">Kegiatan</h4>
+                        <h4 class="page-title text-uppercase font-medium font-14">Tambah Kegiatan</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <div class="d-md-flex">
@@ -41,45 +41,46 @@
                     <div class="col-lg-8 col-xlg-9 col-md-12">
                         <div class="card">
                             <div class="card-body">
-                                <form class="form-horizontal form-material" action="">
+                                <form class="form-horizontal form-material" action="{{route('admin.tambahkegiatan')}}" method="post">
+                                @csrf
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Nama Kegiatan</label>
                                         <div class="col-md-12 border-bottom p-0">
                                             <input type="text" placeholder=""
-                                                class="form-control p-0 border-0"> </div>
+                                                class="form-control p-0 border-0" name="nama_kegiatan"> </div>
                                     </div>
                                     
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Deskripsi Kegiatan</label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" class="form-control border-0">
+                                            <input type="text" class="form-control border-0" name="deskripsi_kegiatan">
                                         </div>
                                     </div>
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Tempat Kegiatan</label>
                                         <div class="col-md-12 border-bottom p-0">
                                             <input type="text" placeholder=""
-                                                class="form-control p-0 border-0">
+                                                class="form-control p-0 border-0" name="tempat_kegiatan">
                                         </div>
                                     </div>
                                     
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Tanggal Kegiatan</label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="date" class="form-control border-0">
+                                            <input type="date" class="form-control border-0" name="tanggal_kegiatan">
                                             
                                         </div>
                                     </div>
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Waktu Kegiatan</label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="time" class="form-control border-0">
+                                            <input type="time" class="form-control border-0" name="waktu_kegiatan">
                                         </div>
                                     </div>
                                     
                                     <div class="form-group mb-4">
                                         <div class="col-sm-12">
-                                            <button class="btn btn-success">Buat Kegiatan</button>
+                                            <input type="submit" class="btn btn-success" value="Buat Kegiatan">                                            
                                         </div>
                                     </div>
                                 </form>

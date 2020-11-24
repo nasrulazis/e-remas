@@ -120,27 +120,12 @@
                         <!-- ============================================================== -->
                         
                                 <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{route('admin.profil')}}" role="button">
                                         
                                         <img src="plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                            class="img-circle"><span class="text-white font-medium">{{ Auth::user()->nama_admin }}</span></a>
+                                            class="img-circle"><span class="text-white font-medium ml-2">{{ Auth::user()->nama_admin }}</span></a>
                                     <span class="caret"></span> 
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">
-                                        {{ __('Profil') }}
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
+                                </a>                                
                             </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -163,25 +148,43 @@
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="adminkegiatan"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('admin.home')}}"
                                 aria-expanded="false">
                                 <i class="far fa-clock" aria-hidden="true"></i>
                                 <span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('admin.profil')}}"
                                 aria-expanded="false">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <span class="hide-menu">Profile</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="kegiatan"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('admin.kegiatan')}}"
                                 aria-expanded="false">
                                 <i class="fa fa-table" aria-hidden="true"></i>
                                 <span class="hide-menu">Kegiatan</span>
                             </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('admin.kegiatan')}}"
+                                aria-expanded="false">
+                                <i class="fa fa-book" aria-hidden="true"></i>
+                                <span class="hide-menu">Forum</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('logout') }}"
+                                aria-expanded="false" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                <i class="fa fa-power-off" aria-hidden="true"></i>
+                                <span class="hide-menu">Log Out</span>
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         </li>
                         
                     </ul>

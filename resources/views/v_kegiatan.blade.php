@@ -15,12 +15,12 @@
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title text-uppercase font-medium font-14">Dashboard</h4>
+                        <h4 class="page-title text-uppercase font-medium font-14">Kegiatan</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <div class="d-md-flex">
                             <ol class="breadcrumb ml-auto">
-                                <li><a href="#">Dashboard</a></li>
+                                <li><a href="{{route('admin.kegiatan')}}">Kegiatan</a></li>
                             </ol>
                             
                         </div>
@@ -35,17 +35,35 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Three charts -->
-                <!-- ============================================================== -->
-                <div class="row justify-content-start">
-                    <a href="{{route('admin.kegiatan')}}"><button type="button" class="btn btn-primary btn-lg">Kegiatan</button></a>
-                </div>
-                <!-- ============================================================== -->
-                <!-- PRODUCTS YEARLY SALES -->
-                <!-- ============================================================== -->
-                             
-                    <!-- /.col -->
+                
+            <div class="row">    
+                    <div class="col-lg-8 col-xlg-9 col-md-12 mb-4">
+                        <a href="{{route('admin.tambahkegiatan')}}"><button class="btn btn-primary">Tambah Kegiatan</button></a>
+                    </div>                
+                    <!-- Column -->
+                    @foreach($kegiatan as $key => $data)
+                    <div class="col-lg-8 col-xlg-9 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="section-heading text-uppercase ">{{$data->nama_kegiatan}}</h2>
+                                <img class="img-fluid w-25" src="assets/img/portfolio/01-thumbnail.jpg.png" alt="" />
+                                <p class="item-intro m-0">Tempat : {{$data->tempat_kegiatan}}</p>
+                                <p class="item-intro m-0">{{$data->deskripsi_kegiatan}}</p>
+                                <p class="item-intro m-0">Tanggal : {{$data->tanggal_kegiatan}}</p>
+                                <p class="item-intro m-0">Pukul : <?php echo $time = date("H:i", strtotime($data->waktu_kegiatan));?> WIB</p>              
+                                <div class="d-flex justify-content-end">
+                                <a href="{{route('admin.editkegiatan')}}?id={{$data->id_kegiatan}}"><button class="btn btn-warning mr-1">Edit Kegiatan</button></a>
+                                <a href="{{route('admin.hapuskegiatan')}}?id={{$data->id_kegiatan}}"><button class="btn btn-danger">Hapus Kegiatan</button></a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    @endforeach
+                    <!-- Column -->
+                    
+                </div>                 
+                
                 
             </div>
             <!-- ============================================================== -->

@@ -20,9 +20,20 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/profil', 'C_Profil@index')->name('profil');
+Route::get('/editprofil', 'C_Profil@edit')->name('editprofil');
+Route::post('/editprofil', 'C_Profil@update')->name('updateprofil');
 
 Route::get('/admin', 'adminController@index')->name('admin.home');
-Route::get('/adminkegiatan', 'adminController@kegiatan')->name('admin.kegiatan');
+Route::get('/adminprofil', 'C_Profiladmin@index')->name('admin.profil');
+Route::get('/admineditprofil', 'C_Profiladmin@edit')->name('admin.editprofil');
+Route::post('/admineditprofil', 'C_Profiladmin@update')->name('admin.updateprofil');
+Route::get('/adminkegiatan', 'C_Kegiatan@index')->name('admin.kegiatan');
+Route::get('/adminkegiatancreate', 'C_Kegiatan@create')->name('admin.tambahkegiatan');
+Route::post('/adminkegiatancreate', 'C_Kegiatan@store')->name('admin.tambahkegiatan');
+Route::get('/adminkegiatanedit', 'C_Kegiatan@edit')->name('admin.editkegiatan');
+Route::post('/adminkegiatanedit', 'C_Kegiatan@update')->name('admin.updatekegiatan');
+Route::get('/adminkegiatandestroy', 'C_Kegiatan@destroy')->name('admin.hapuskegiatan');
 Route::get('/adminlogin', 'AuthAdmin\LoginController@showLoginForm')->name('admin.login');
 Route::post('/adminlogin', 'AuthAdmin\LoginController@login')->name('admin.login.submit');
 Route::get('/adminregister', 'AuthAdmin\RegisterController@showRegistrationForm')->name('admin.register');
