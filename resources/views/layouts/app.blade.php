@@ -91,6 +91,13 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item">
+                                <a href="{{ route('forum') }}" class="nav-link js-scroll-trigger">Forum</a>
+                                <span class="caret"></span> 
+                            </li>
+                            <li class="nav-item d-sm-none d-md-block">
+                                <a class="nav-link">|</a>                                
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     @if(Auth::check('anggota'))
