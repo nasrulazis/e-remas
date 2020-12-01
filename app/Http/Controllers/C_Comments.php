@@ -3,28 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use App\Comment;
 use App\forum;
-use App\anggota;
-use App\tag;
+use Auth;
 
-class C_Forum extends Controller
+class C_Comments extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:anggota');        
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth:anggota');        
-    }
     public function index()
     {
-        $forums = forum::orderBy('updated_at', 'desc')->paginate(5);
-        $tags=tag::all();
-        
-        return view('v_forum',compact('forums','tags'));
+        //
     }
 
     /**
@@ -43,18 +39,14 @@ class C_Forum extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, forum $forum)
     {
-        $forums = New forum;
-        $forums->id_anggota = Auth::user()->id_anggota;
-        $forums->title = $request->title;
-        $forums->slug = str_slug($request->title);
-        $forums->deskripsi = $request->deskripsi;
-        $forums->save();
-        $forums->tags()->sync($request->tags);
+        $comment = new Comment;
+        $comment->user_id= Auth::user()->id_anggota;    
+        $comment->content= $request->komentar;
+
+        $forum->comments()->save($comment);
         return back();
-        
-        
     }
 
     /**
@@ -63,13 +55,9 @@ class C_Forum extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        $id=$_GET['id'];
-        $forums = forum::where('id',$id)->get();
-        $tags=tag::all();
-        $anggota= anggota::all();
-        return view('v_forumdetail',compact('forums','tags','anggota'));
+        //
     }
 
     /**
@@ -80,7 +68,7 @@ class C_Forum extends Controller
      */
     public function edit($id)
     {
-
+        //
     }
 
     /**
@@ -92,14 +80,7 @@ class C_Forum extends Controller
      */
     public function update(Request $request, $id)
     {
-        $forums = forum::find($id);
-        $forums->id_anggota = Auth::user()->id_anggota;
-        $forums->title = $request->title;
-        $forums->slug = str_slug($request->title);
-        $forums->deskripsi = $request->deskripsi;
-        $forums->save();
-
-        return back();
+        //
     }
 
     /**
@@ -110,9 +91,6 @@ class C_Forum extends Controller
      */
     public function destroy($id)
     {
-        $forums = forum::find($id);
-        $forums->delete();
-
-        return back();
+        //
     }
 }

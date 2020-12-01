@@ -15,6 +15,7 @@ class C_Forumadmin extends Controller
     {
         $this->middleware('auth:admin');        
     }
+    
     public function index()
     {
         return view('v_forumadmin');

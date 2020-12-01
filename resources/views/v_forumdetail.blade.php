@@ -53,7 +53,6 @@
                     <div class="col-10 p-2">
                         <div class="my-2">
                         <!-- pagination -->
-                        {!!$forums->links()!!}
                         <!-- <b>Showing :</b>
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">                                                    
                                 <label class="btn btn-primary active">
@@ -116,18 +115,79 @@
                                 
                             </div>
                             <div class="card-body d-flex justify-content-between">
-                                <div class="d-flex flex-column w-75">
-                                    <a href="{{route('detailforum')}}?id={{$data->id}}" class="text-dark"><h5 class="card-title">{{str_limit($data->title,50)}}</h5></a>
-                                    <p class="card-text">{!!$data->deskripsi!!}</p>                    
+                                <div class="d-flex flex-column w-100">
+                                    <a href="{{route('detailforum')}}?id={{$data->id}}" class="text-dark"><h5 class="card-title ">{{str_limit($data->title,50)}}</h5></a>
+                                    <p class="card-text">{!!$data->deskripsi!!}</p>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="w-100">
+                                            <button type="button" class="btn btn-light w-25 mr-2" disabled>Komentar 0</button>                  
+                                            <button type="button" class="btn btn-light w-25" disabled>View 0</button>
+                                        </div>                
+                                        <button type="button" class="btn btn-outline-dark w-25 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">+ Komentar</button> 
+                                        <div class="dropdown-menu dropdown-menu-right w-75">
+                                        
+                                            <form action="{{route('komentarforum',$data->id)}}" method="post" class="d-flex">
+                                            @csrf
+                                            <input type="text" name="komentar" placeholder="Tambahkan Komentar" class="form-control my-3 ml-3">
+                                            <input type="submit" value="Kirim" class="form-control m-3 w-25">
+                                            </form>
+                                        </div>                 
+                                    </div>
                                 </div>
-                                <div class="d-flex align-items-center height:100%">
-                                    <a href="" class="btn btn-primary rounded-pill">10</a>
-                                </div>
+                                
                             </div>
                         </div>
+                        @forelse($data->comments as $key => $comment)
+                        <div class="card-header d-flex align-items-center">
+                            <div class="col-2 d-flex align-items-center">
+                                <div class="image btn btn-secondary ">
+                                </div>
+                                <?php                                   
+                                    $nama_user=$anggota->where('id_anggota',$comment->user_id);
+                                ?>
+                                
+                            </div>                            
+                            <div class="col-10 m-2"> 
+                                <div class="card-header d-flex justify-content-between">
+                                    <!-- nama komentar  -->
+                                    @foreach($nama_user as $key => $data_anggota)
+                                    <p class="m-0 ml-2">{{$data_anggota->nama_anggota}}</p>
+                                    @endforeach
+
+                                    <!-- waktu komentar  -->
+                                    <span class="text-muted ml-2 font-italic">                                    
+                                    <?php
+                                    $now = new DateTime();
+                                    $updated = $comment->updated_at;
+                                    $date = new DateTime($updated);
+                                    // $datepost = date('m/d/Y', $updated);
+                                    $day = $date->diff($now)->format("%d");
+                                    $hour = $date->diff($now)->format("%h");
+                                    $minutes = $date->diff($now)->format("%i");                                    
+
+                                    if($day<=0&&$hour<=0){
+                                        $selisih = $date->diff($now)->format("%i menit");
+                                    }else if($day<=0&&$hour>0){
+                                        $selisih = $date->diff($now)->format("%h jam");                                                                        
+                                    }else{
+                                        $selisih = $date->diff($now)->format("%d hari");
+                                    }
+                                    echo $selisih?> yang lalu
+                                    
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                {{$comment->content}}
+                                </div>
+                                
+                            </div>
+                        </div>
+                        @empty
+                        @endforelse
                         @endforeach
                         <!-- end ripidid -->
-                        {!!$forums->links()!!}
+                        
                     </div>
                     
                 </div>

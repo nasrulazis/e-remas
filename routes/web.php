@@ -29,6 +29,8 @@ Route::get('/forum', 'C_Forum@index')->name('forum');
 Route::post('/forumcreate', 'C_Forum@store')->name('tambahforum');
 Route::post('/forumedit/{id}', 'C_Forum@update')->name('editforum');
 Route::post('/forumdestroy/{id}', 'C_Forum@destroy')->name('hapusforum');
+Route::get('/forumdetail', 'C_Forum@show')->name('detailforum');
+Route::post('/forumcomment/{forum}', 'C_Comments@store')->name('komentarforum');
 
 
 
