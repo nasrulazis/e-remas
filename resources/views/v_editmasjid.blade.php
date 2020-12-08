@@ -15,12 +15,12 @@
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title text-uppercase font-medium font-14">Kegiatan</h4>
+                        <h4 class="page-title text-uppercase font-medium font-14">Edit Masjid</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <div class="d-md-flex">
                             <ol class="breadcrumb ml-auto">
-                                <li><a href="{{route('admin.kegiatan')}}">Kegiatan</a></li>
+                                <li><a href="{{route('admin.masjid')}}">Masjid</a></li>
                             </ol>
                             
                         </div>
@@ -36,35 +36,39 @@
             <!-- ============================================================== -->
             <div class="container-fluid">
                 
-            <div class="row">    
-                    <div class="col-lg-8 col-xlg-9 col-md-12 mb-4">
-                        <a href="{{route('admin.tambahkegiatan')}}"><button class="btn btn-primary">Tambah Kegiatan</button></a>
-                    </div>                
+            <div class="row">                    
                     <!-- Column -->
-                    @foreach($kegiatan as $key => $data)
                     <div class="col-lg-8 col-xlg-9 col-md-12">
                         <div class="card">
                             <div class="card-body">
-                                <h2 class="section-heading text-uppercase ">{{$data->nama_kegiatan}}</h2>
-                                <img class="img-fluid w-25" src="assets/img/portfolio/01-thumbnail.jpg.png" alt="" />
-                                <?php
-                                    $masjid=App\masjid::where('id',$data->id_masjid)->first();                                   
-                                ?>
-                                <p class="item-intro m-0">Tempat : {{$masjid->nama_masjid}}</p>
-                                <p class="item-intro m-0">{{$data->deskripsi_kegiatan}}</p>
-                                <p class="item-intro m-0">Tanggal : {{$data->tanggal_kegiatan}}</p>
-                                <p class="item-intro m-0">Pukul : <?php echo $time = date("H:i", strtotime($data->waktu_kegiatan));?> WIB</p>              
-                                <div class="d-flex justify-content-end">
-                                <a href="{{route('admin.editkegiatan')}}?id={{$data->id_kegiatan}}"><button class="btn btn-warning mr-1">Edit Kegiatan</button></a>
-                                <a href="{{route('admin.hapuskegiatan')}}?id={{$data->id_kegiatan}}"><button class="btn btn-danger">Hapus Kegiatan</button></a>
-                                </div>
+                                @foreach($masjid as $key=>$data)
+                                <form class="form-horizontal form-material" action="{{route('admin.editmasjid',$data->id)}}" method="post">
+                                @csrf
+                                    <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0">Nama Masjid</label>
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <input type="text" placeholder=""
+                                                class="form-control p-0 border-0" name="nama_masjid" value="{{$data->nama_masjid}}"> </div>
+                                    </div>
+                                    
+                                    <div class="form-group mb-4">
+                                        <label class="col-md-12 p-0">Alamat</label>
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <input type="text" class="form-control border-0" name="alamat" value="{{$data->alamat}}">
+                                        </div>
+                                    </div>                                    
+                                    
+                                    <div class="form-group mb-4">
+                                        <div class="col-sm-12">
+                                            <input type="submit" class="btn btn-primary" value="Edit Masjid">                                            
+                                        </div>
+                                    </div>
+                                </form>
+                                @endforeach
                             </div>
-                            
                         </div>
                     </div>
-                    @endforeach
                     <!-- Column -->
-                    
                 </div>                 
                 
                 

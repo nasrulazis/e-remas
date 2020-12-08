@@ -63,12 +63,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         return anggota::create([
             'nama_anggota' => $data['nama_anggota'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'alamat'=> NULL,
             'no_hp'=> NULL,
+            'role'=> 1,
+            'id_masjid'=> $data['masjid'],
         ]);
     }
 }

@@ -138,7 +138,7 @@
                                 
                             </div>
                         </div>
-                        @forelse($data->comments as $key => $comment)
+                        @forelse($data->comments->sortByDesc('updated_at') as $key => $comment)
                         <div class="card-header d-flex align-items-center">
                             <div class="col-2 d-flex align-items-center">
                                 <div class="image btn btn-secondary ">

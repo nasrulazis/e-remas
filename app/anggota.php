@@ -18,7 +18,7 @@ class anggota extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nama_anggota', 'email', 'password', 'alamat','no_hp',
+        'nama_anggota', 'email', 'password', 'alamat','no_hp','role','id_masjid'
     ];
 
     /**

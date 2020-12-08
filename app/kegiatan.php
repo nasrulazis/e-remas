@@ -10,6 +10,6 @@ class kegiatan extends Model
     protected $primaryKey = 'id_kegiatan';
 
     protected $fillable = [
-        'nama_kegiatan', 'tanggal_kegiatan', 'deskripsi_kegiatan', 'tempat_kegiatan','waktu_kegiatan',
+        'nama_kegiatan', 'tanggal_kegiatan', 'deskripsi_kegiatan', 'id_masjid','waktu_kegiatan',
     ];
 }

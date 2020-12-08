@@ -2,6 +2,11 @@
 
 @section('content')
     <!-- Masthead-->
+        <div class="position-fixed button-hover d-flex align-items-end flex-column" style="bottom: 45px; right: 24px;">
+        <a href="{{route('infaq')}}" class="d-flex align-items-center mb-2" id="infaq"><p class="m-0 font-weight-bold">Infaq</p><button class="ml-2 btn-lg rounded-circle btn-primary btn square shadow d-flex justify-content-center" ><i class="fas fa-donate"></i></button></a>
+        <!-- <a href="{{route('infaq')}}" class="d-flex align-items-center mb-2" id="infaq"><p class="m-0 font-weight-bold">Donasi</p><button class="ml-2 btn-lg rounded-circle btn-primary btn square shadow" ><i class="fas fa-hand-holding-usd"></i></button></a> -->
+        <a class=" btn-lg rounded-circle btn-primary btn d-flex align-items-center square shadow" id="button-hover" ><i class="fas fa-plus"></i></a>           
+        </div>
         <header class="masthead">
             <div class="container">
                 <div class="masthead-subheading">Cari Acara Masjid Didekatmu!</div>
@@ -28,7 +33,7 @@
                                 <div class="portfolio-caption">
                                     <div class="portfolio-caption-heading">{{$data->nama_kegiatan}}</div>
                                     <div class="portfolio-caption-subheading text-muted">{{$data->tanggal_kegiatan}}, {{$data->waktu_kegiatan}} WIB</div>
-                                    <!-- <div class="portfolio-caption-subheading text-muted">{{$data->tempat_kegiatan}}</div> -->
+                                    
                                 </div>
                             </div>
                         </div>
@@ -88,7 +93,10 @@
                                 <div class="modal-body">
                                     <!-- Project Details Go Here-->
                                     <h2 class="section-heading text-uppercase ">{{$data->nama_kegiatan}}</h2>
-                                    <p class="item-intro text-muted">{{$data->tempat_kegiatan}}</p>
+                                    <?php
+                                    $masjid=App\masjid::where('id',$data->id_masjid)->first();                                   
+                                    ?>
+                                    <p class="item-intro text-muted">{{$masjid->nama_masjid}}</p>
                                     <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/img-6001.jpg" alt="" />
                                     <p>{{$data->deskripsi_kegiatan}}</p>
                                     <ul class="list-inline">
@@ -109,4 +117,5 @@
             </div>
         </div>
         @endforeach
+        
 @endsection

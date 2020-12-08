@@ -60,8 +60,12 @@
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Tempat Kegiatan</label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" placeholder=""
-                                                class="form-control p-0 border-0" name="tempat_kegiatan" value="{{$data->tempat_kegiatan}}">
+                                            <select class="form-control" id="masjid" name="masjid">
+                                                <option disabled selected>Pilih Masjid</option>
+                                                @foreach($masjid as $key=>$data)
+                                                <option value="{{$data->id}}">{{$data->nama_masjid}}</option>
+                                                @endforeach                                           
+                                            </select>
                                         </div>
                                     </div>
                                     

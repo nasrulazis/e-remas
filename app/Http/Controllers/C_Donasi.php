@@ -3,22 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\kegiatan;
+use App\masjid;
+use App\infaq;
 
-class C_Kegiatan extends Controller
+class C_Donasi extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth:anggota');
-    }
     public function index()
     {
-        //
+        $masjid=masjid::all();
+        return view('v_infaq',compact('masjid'));
     }
 
     /**
@@ -38,15 +36,19 @@ class C_Kegiatan extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        kegiatan::create([
-            'nama_kegiatan' => $request['nama_kegiatan'],
-            'tanggal_kegiatan' => $request['tanggal_kegiatan'],
-            'deskripsi_kegiatan' => $request['deskripsi_kegiatan'],
-            'id_masjid'=> $request['masjid'],
-            'waktu_kegiatan'=> $request['waktu_kegiatan'],
-        ]);
-        return back();
+    {        
+        $infaq=New infaq;
+        $infaq->nama_pengirim=$request->nama_pengirim;
+        $infaq->masjid=$request->masjid;
+        $infaq->infaq=$request->jumlah;
+        $file=$request->file('image');
+        $filename=time().'.'.$file->getClientOriginalExtension();
+        $location=public_path('/images');
+        $file->move($location,$filename);
+        $infaq->bukti_pembayaran=$filename;                                                        
+        $infaq->status=1;
+        $infaq->save();
+        return redirect()->route('infaq');
     }
 
     /**
@@ -55,9 +57,11 @@ class C_Kegiatan extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $jumlah=$_GET['jumlah'];
+        $masjid=$_GET['masjid'];
+        return view('v_infaqcheckout',compact('jumlah','masjid'));
     }
 
     /**
@@ -78,17 +82,9 @@ class C_Kegiatan extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
-    {        
-        $id=$_GET['id'];
-        kegiatan::where('id_kegiatan',$id)->update([
-            'nama_kegiatan' => $request['nama_kegiatan'],
-            'tanggal_kegiatan' => $request['tanggal_kegiatan'],
-            'deskripsi_kegiatan' => $request['deskripsi_kegiatan'],
-            'id_masjid'=> $request['masjid'],
-            'waktu_kegiatan'=> $request['waktu_kegiatan'],
-        ]);
-        return back();
+    public function update(Request $request, $id)
+    {
+        //
     }
 
     /**
@@ -97,10 +93,8 @@ class C_Kegiatan extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy($id)
     {
-        $id=$_GET['id'];
-        kegiatan::destroy(array($id));
-        return back();
+        //
     }
 }

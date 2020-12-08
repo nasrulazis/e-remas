@@ -33,7 +33,7 @@
         <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="{{asset('css/styles.css')}}" rel="stylesheet" />
         <!-- Bootstrap core JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -43,7 +43,9 @@
         <script src="assets/mail/jqBootstrapValidation.js"></script>
         <script src="assets/mail/contact_me.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        <script src="{{asset('js/scripts.js')}}"></script>
+
+        
 </head>
 <body>
     <div id="app">
@@ -95,6 +97,13 @@
                             @endif
                         @else
                             <li class="nav-item">
+                                <a href="{{ route('masjid') }}" class="nav-link js-scroll-trigger">Masjid</a>
+                                <span class="caret"></span> 
+                            </li>
+                            <li class="nav-item d-sm-none d-md-block">
+                                <a class="nav-link">|</a>                                
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('forum') }}" class="nav-link js-scroll-trigger">Forum</a>
                                 <span class="caret"></span> 
                             </li>
@@ -114,7 +123,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{route('profil')}}">
                                         {{ __('Profil') }}
-                                    </a>
+                                    </a>                                    
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

@@ -120,8 +120,11 @@
                                     <a href="{{route('detailforum')}}?id={{$data->id}}" class="text-dark"><h5 class="card-title">{{str_limit($data->title,50)}}</h5></a>
                                     <p class="card-text">{!!$data->deskripsi!!}</p>                    
                                 </div>
+                                <?php
+                                    $comment_count=App\Comment::where('commentable_id',$data->id)->get();
+                                ?>
                                 <div class="d-flex align-items-center height:100%">
-                                    <a href="" class="btn btn-primary rounded-pill">10</a>
+                                    <a href="{{route('detailforum')}}?id={{$data->id}}" class="btn btn-primary rounded-pill">{{count($comment_count)}}</a>
                                 </div>
                             </div>
                         </div>

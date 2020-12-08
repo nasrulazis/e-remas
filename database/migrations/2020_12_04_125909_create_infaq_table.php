@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateKegiatanTable extends Migration
+class CreateInfaqTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateKegiatanTable extends Migration
      */
     public function up()
     {
-        Schema::create('kegiatan', function (Blueprint $table) {
-            $table->bigIncrements('id_kegiatan');
-            $table->string('nama_kegiatan',100);
-            $table->date('tanggal_kegiatan');
-            $table->string('deskripsi_kegiatan');
+        Schema::create('infaq', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('nama_pengirim')->nullable;
             $table->integer('id_masjid');
-            $table->time('waktu_kegiatan');
-            // $table->foreign('id_anggota');
+            $table->integer('infaq');
+            $table->string('bukti_pembayaran')->nullable();
+            $table->integer('status');
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ class CreateKegiatanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kegiatan');
+        Schema::dropIfExists('infaqs');
     }
 }

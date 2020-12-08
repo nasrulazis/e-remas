@@ -21,6 +21,9 @@ class CreateAnggotaTable extends Migration
             $table->string('password');
             $table->string('alamat')->nullable();
             $table->string('no_hp')->nullable();
+            $table->integer('role');
+            $table->integer('id_masjid');
+            
             $table->rememberToken();
             $table->timestamps();
         });

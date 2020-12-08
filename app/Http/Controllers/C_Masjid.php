@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\masjid;
 use App\kegiatan;
+use App\infaq;
 
-class C_Kegiatan extends Controller
+class C_Masjid extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +16,12 @@ class C_Kegiatan extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:anggota');
+        $this->middleware('auth:anggota');        
     }
     public function index()
     {
-        //
+        $masjid=masjid::all();
+        return view('v_masjid',compact('masjid'));
     }
 
     /**
@@ -39,14 +42,7 @@ class C_Kegiatan extends Controller
      */
     public function store(Request $request)
     {
-        kegiatan::create([
-            'nama_kegiatan' => $request['nama_kegiatan'],
-            'tanggal_kegiatan' => $request['tanggal_kegiatan'],
-            'deskripsi_kegiatan' => $request['deskripsi_kegiatan'],
-            'id_masjid'=> $request['masjid'],
-            'waktu_kegiatan'=> $request['waktu_kegiatan'],
-        ]);
-        return back();
+        //
     }
 
     /**
@@ -57,7 +53,10 @@ class C_Kegiatan extends Controller
      */
     public function show($id)
     {
-        //
+        $kegiatan=kegiatan::where('id_masjid',$id)->get();        
+        $masjid=masjid::where('id',$id)->get();
+        $infaq=infaq::where('masjid',$id)->where('status',2)->get();
+        return view('v_masjiddetail',compact('masjid','kegiatan','infaq'));
     }
 
     /**
@@ -78,17 +77,9 @@ class C_Kegiatan extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
-    {        
-        $id=$_GET['id'];
-        kegiatan::where('id_kegiatan',$id)->update([
-            'nama_kegiatan' => $request['nama_kegiatan'],
-            'tanggal_kegiatan' => $request['tanggal_kegiatan'],
-            'deskripsi_kegiatan' => $request['deskripsi_kegiatan'],
-            'id_masjid'=> $request['masjid'],
-            'waktu_kegiatan'=> $request['waktu_kegiatan'],
-        ]);
-        return back();
+    public function update(Request $request, $id)
+    {
+        //
     }
 
     /**
@@ -97,10 +88,8 @@ class C_Kegiatan extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy($id)
     {
-        $id=$_GET['id'];
-        kegiatan::destroy(array($id));
-        return back();
+        //
     }
 }

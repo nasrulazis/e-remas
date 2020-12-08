@@ -3,22 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\kegiatan;
+use App\masjid;
 
-class C_Kegiatan extends Controller
+class C_Kegiatanadmin extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+    protected $redirectTo = "{{route('admin.kegiatan')}}";
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth:anggota');
-    }
     public function index()
     {
-        //
+        $kegiatan = DB::table('kegiatan')->get();
+        return view('v_kegiatan',['kegiatan' => $kegiatan]);
     }
 
     /**
@@ -28,7 +32,8 @@ class C_Kegiatan extends Controller
      */
     public function create()
     {
-        //
+        $masjid=masjid::all();
+        return view('adminKegiatan',compact('masjid'));
     }
 
     /**
@@ -46,7 +51,7 @@ class C_Kegiatan extends Controller
             'id_masjid'=> $request['masjid'],
             'waktu_kegiatan'=> $request['waktu_kegiatan'],
         ]);
-        return back();
+        return redirect()->route('admin.kegiatan');
     }
 
     /**
@@ -66,9 +71,13 @@ class C_Kegiatan extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        $id=$_GET['id'];
+        $masjid=masjid::all();
+        $kegiatan = kegiatan::where('id_kegiatan', $id)->get();
+        // dd();
+        return view('v_formkegiatan', compact('kegiatan','masjid'));
     }
 
     /**
@@ -79,7 +88,7 @@ class C_Kegiatan extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
-    {        
+    {
         $id=$_GET['id'];
         kegiatan::where('id_kegiatan',$id)->update([
             'nama_kegiatan' => $request['nama_kegiatan'],
@@ -88,7 +97,7 @@ class C_Kegiatan extends Controller
             'id_masjid'=> $request['masjid'],
             'waktu_kegiatan'=> $request['waktu_kegiatan'],
         ]);
-        return back();
+        return redirect()->route('admin.kegiatan');
     }
 
     /**
@@ -101,6 +110,6 @@ class C_Kegiatan extends Controller
     {
         $id=$_GET['id'];
         kegiatan::destroy(array($id));
-        return back();
+        return redirect()->route('admin.kegiatan');
     }
 }

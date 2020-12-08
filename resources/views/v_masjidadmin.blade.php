@@ -15,12 +15,12 @@
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title text-uppercase font-medium font-14">Kegiatan</h4>
+                        <h4 class="page-title text-uppercase font-medium font-14">Profil Masjid</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <div class="d-md-flex">
                             <ol class="breadcrumb ml-auto">
-                                <li><a href="{{route('admin.kegiatan')}}">Kegiatan</a></li>
+                                <li><a href="{{route('admin.masjid')}}">Profil Masjid</a></li>
                             </ol>
                             
                         </div>
@@ -37,32 +37,34 @@
             <div class="container-fluid">
                 
             <div class="row">    
-                    <div class="col-lg-8 col-xlg-9 col-md-12 mb-4">
-                        <a href="{{route('admin.tambahkegiatan')}}"><button class="btn btn-primary">Tambah Kegiatan</button></a>
-                    </div>                
+                                  
                     <!-- Column -->
-                    @foreach($kegiatan as $key => $data)
-                    <div class="col-lg-8 col-xlg-9 col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h2 class="section-heading text-uppercase ">{{$data->nama_kegiatan}}</h2>
-                                <img class="img-fluid w-25" src="assets/img/portfolio/01-thumbnail.jpg.png" alt="" />
-                                <?php
-                                    $masjid=App\masjid::where('id',$data->id_masjid)->first();                                   
-                                ?>
-                                <p class="item-intro m-0">Tempat : {{$masjid->nama_masjid}}</p>
-                                <p class="item-intro m-0">{{$data->deskripsi_kegiatan}}</p>
-                                <p class="item-intro m-0">Tanggal : {{$data->tanggal_kegiatan}}</p>
-                                <p class="item-intro m-0">Pukul : <?php echo $time = date("H:i", strtotime($data->waktu_kegiatan));?> WIB</p>              
-                                <div class="d-flex justify-content-end">
-                                <a href="{{route('admin.editkegiatan')}}?id={{$data->id_kegiatan}}"><button class="btn btn-warning mr-1">Edit Kegiatan</button></a>
-                                <a href="{{route('admin.hapuskegiatan')}}?id={{$data->id_kegiatan}}"><button class="btn btn-danger">Hapus Kegiatan</button></a>
-                                </div>
-                            </div>
-                            
-                        </div>
+                    <div class="col-md-12">
+                    <a href="{{route('admin.tambahmasjid')}}" class="btn btn-primary my-2">Tambah</a>
+                    
+                    <div class="card">
+                    <table class="table m-0">
+                        <thead class="thead-dark">
+                            <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Nama Masjid</th>
+                            <th scope="col">Alamat</th> 
+                            <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($masjid as $key=>$data)
+                            <tr>
+                                <th scope="row">{{$loop->iteration}}</th>
+                                <td>{{$data->nama_masjid}}</td>
+                                <td>{{$data->alamat}}</td>
+                                <td class="d-flex justify-content-end"><a href="{{route('admin.deletemasjid',$data->id)}}" class="btn btn-danger"><i class="fas fa-trash"></i></a><a href="{{route('admin.editmasjid',$data->id)}}" class="btn btn-primary ml-2">Edit</a></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                     </div>
-                    @endforeach
+                    </div>      
                     <!-- Column -->
                     
                 </div>                 

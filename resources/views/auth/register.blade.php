@@ -39,6 +39,20 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
+                            <?php
+                                $masjid=App\masjid::all();                                
+                            ?>
+                            <div class="col-md-6">
+                                <select class="form-control" id="masjid" name="masjid">
+                                    <option disabled selected>Pilih Masjid</option>
+                                    @foreach($masjid as $key=>$data)
+                                    <option value="{{$data->id}}">{{$data->nama_masjid}}</option>
+                                    @endforeach                                           
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>

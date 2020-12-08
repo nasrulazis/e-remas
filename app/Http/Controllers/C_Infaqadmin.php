@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\kegiatan;
+use App\infaq;
 
-class C_Kegiatan extends Controller
+class C_Infaqadmin extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +14,13 @@ class C_Kegiatan extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:anggota');
+        $this->middleware('auth:admin');        
     }
+    
     public function index()
     {
-        //
+        $infaq=infaq::all();
+        return view('v_infaqadmin',compact('infaq'));
     }
 
     /**
@@ -39,14 +41,7 @@ class C_Kegiatan extends Controller
      */
     public function store(Request $request)
     {
-        kegiatan::create([
-            'nama_kegiatan' => $request['nama_kegiatan'],
-            'tanggal_kegiatan' => $request['tanggal_kegiatan'],
-            'deskripsi_kegiatan' => $request['deskripsi_kegiatan'],
-            'id_masjid'=> $request['masjid'],
-            'waktu_kegiatan'=> $request['waktu_kegiatan'],
-        ]);
-        return back();
+        //
     }
 
     /**
@@ -78,16 +73,11 @@ class C_Kegiatan extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
-    {        
-        $id=$_GET['id'];
-        kegiatan::where('id_kegiatan',$id)->update([
-            'nama_kegiatan' => $request['nama_kegiatan'],
-            'tanggal_kegiatan' => $request['tanggal_kegiatan'],
-            'deskripsi_kegiatan' => $request['deskripsi_kegiatan'],
-            'id_masjid'=> $request['masjid'],
-            'waktu_kegiatan'=> $request['waktu_kegiatan'],
-        ]);
+    public function update($id)
+    {
+        $infaq=infaq::find($id);
+        $infaq->status=2;
+        $infaq->save();
         return back();
     }
 
@@ -97,10 +87,11 @@ class C_Kegiatan extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy($id)
     {
-        $id=$_GET['id'];
-        kegiatan::destroy(array($id));
+        $infaq=infaq::find($id);
+        $infaq->status=1;
+        $infaq->save();
         return back();
     }
 }
