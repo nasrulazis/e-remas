@@ -88,6 +88,20 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
+                                <a href="{{ route('masjid') }}" class="nav-link js-scroll-trigger">Masjid</a>
+                                <span class="caret"></span> 
+                            </li>
+                            <li class="nav-item d-sm-none d-md-block">
+                                <a class="nav-link">|</a>                                
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('forum') }}" class="nav-link js-scroll-trigger">Forum</a>
+                                <span class="caret"></span> 
+                            </li>
+                            <li class="nav-item d-sm-none d-md-block">
+                                <a class="nav-link">|</a>                                
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))

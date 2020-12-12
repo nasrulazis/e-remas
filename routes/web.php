@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    $kegiatan = DB::table('kegiatan')->get();
+    $kegiatan = DB::table('kegiatan')->orderBy('tanggal_kegiatan','desc')->simplePaginate(2);
     return view('index',['kegiatan' => $kegiatan]);
 });
 

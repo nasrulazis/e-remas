@@ -15,10 +15,7 @@ class C_Forum extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth:anggota');        
-    }
+
     public function index()
     {
         $forums = forum::orderBy('updated_at', 'desc')->paginate(5);

@@ -12,7 +12,9 @@
             <div class="container  d-flex justify-content-between">
                 <h1>Forum</h1>
                 <div>
+                    @if(Auth::check())
                     <a href="#" class="btn btn-outline-dark font-weight-bold" data-toggle="modal" data-target="#tambahModal">+ Diskusi</a>
+                    @endif
                 </div>
             </div>
             <div class="container border px-4 border-bottom-0 border-right-0 border-left-0">
@@ -88,9 +90,11 @@
                                 </div>
                                 
                                 <div>
-                                    @if (Auth::user()->id_anggota==$data->id_anggota)
-                                    <a href="#" class="text-danger mr-2 " data-toggle="modal" data-target="#deleteModal{{$data->id}}">Delete</a>
-                                    <a href="#" class=" " data-toggle="modal" data-target="#editModal{{$data->id}}">Edit</a>
+                                    @if(Auth::check())
+                                        @if (Auth::user()->id_anggota==$data->id_anggota)
+                                        <a href="#" class="text-danger mr-2 " data-toggle="modal" data-target="#deleteModal{{$data->id}}">Delete</a>
+                                        <a href="#" class=" " data-toggle="modal" data-target="#editModal{{$data->id}}">Edit</a>
+                                        @endif
                                     @endif
                                     <span class="text-muted ml-2 font-italic">                                    
                                     <?php

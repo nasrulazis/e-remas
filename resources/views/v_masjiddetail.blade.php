@@ -65,8 +65,10 @@
                     <div class="col-lg-10">
 
                     <h4>Kegiatan Masjid</h4>
-                    @if(Auth::user()->id_masjid==$data->id)
-                    <a href="" class="btn btn-primary mb-2" data-toggle="modal" data-target="#tambahModal">+ Kegiatan</a>                    
+                    @if(Auth::check())
+                        @if(Auth::user()->id_masjid==$data->id)
+                        <a href="" class="btn btn-primary mb-2" data-toggle="modal" data-target="#tambahModal">+ Kegiatan</a>                    
+                        @endif
                     @endif
                     @if($kegiatan->isEmpty())
                     <div class="card">
@@ -84,9 +86,11 @@
                             ?>
                             <h6 class="card-subtitle text-muted mb-2">Masjid {{$masjid->nama_masjid}}</h6>
                             <p class="card-text">{{$data->tanggal_kegiatan}}, {{$data->waktu_kegiatan}} WIB</p>
-                            @if(Auth::user()->id_masjid==$masjid->id)
-                            <a href="" class="btn btn-primary mb-2" data-toggle="modal" data-target="#editModal{{$data->id}}">Edit Kegiatan</a>                    
-                            <a href="" class="btn btn-danger mb-2" data-toggle="modal" data-target="#deleteModal{{$data->id}}"><i class="fas fa-trash"></i></a>                    
+                            @if(Auth::check())
+                                @if(Auth::user()->id_masjid==$masjid->id)
+                                <a href="" class="btn btn-primary mb-2" data-toggle="modal" data-target="#editModal{{$data->id}}">Edit Kegiatan</a>                    
+                                <a href="" class="btn btn-danger mb-2" data-toggle="modal" data-target="#deleteModal{{$data->id}}"><i class="fas fa-trash"></i></a>                    
+                                @endif
                             @endif
                         </div>
                     </div>
@@ -133,12 +137,14 @@
                                         <label class="col-md-12 p-0">Tempat Kegiatan</label>
                                         <div class="col-md-12 border-bottom p-0">
                                             <select class="form-control" id="masjid" name="masjid">
+                                                @if(Auth::check())
                                                 <?php
                                                     $masjid=App\masjid::where('id',Auth::user()->id_masjid)->get();                                   
                                                 ?>
                                                 @foreach($masjid as $key=>$data)
                                                 <option value="{{$data->id}}" selected>{{$data->nama_masjid}}</option>
                                                 @endforeach                                          
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -205,13 +211,15 @@
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Tempat Kegiatan</label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <select class="form-control" id="masjid" name="masjid">                                                
+                                            <select class="form-control" id="masjid" name="masjid">
+                                                @if(Auth::check())
                                                 <?php
                                                     $masjid=App\masjid::where('id',Auth::user()->id_masjid)->get();                                   
                                                 ?>
                                                 @foreach($masjid as $key=>$data)
                                                 <option value="{{$data->id}}" selected>{{$data->nama_masjid}}</option>
                                                 @endforeach                                           
+                                                @endif
                                             </select>
                                         </div>
                                     </div>

@@ -25,10 +25,12 @@
                                     <a href="{{route('masjiddetail',$data->id)}}" class="btn btn-primary">Lihat Detail</a>
                                     </div>
                                     <div class="right align-items-center d-flex">
-                                    @if(Auth::user()->id_masjid==$data->id&&Auth::user()->role==1)
-                                    Remaja masjid
-                                    @elseif(Auth::user()->id_masjid==$data->id&&Auth::user()->role==2)
-                                    Takmir
+                                    @if(Auth::check())
+                                        @if(Auth::user()->id_masjid==$data->id&&Auth::user()->role==1)
+                                        Remaja masjid
+                                        @elseif(Auth::user()->id_masjid==$data->id&&Auth::user()->role==2)
+                                        Takmir
+                                        @endif
                                     @endif
                                     </div>
                                 </div>

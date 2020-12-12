@@ -37,7 +37,11 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach                       
+                    @endforeach                                               
+                        
+                </div>
+                <div class="d-flex justify-content-center">
+                {{$kegiatan->links()}}
                 </div>
                 
             </div>
