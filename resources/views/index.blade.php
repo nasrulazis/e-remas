@@ -121,5 +121,13 @@
             </div>
         </div>
         @endforeach
+
+        <!-- @if(isset($flag) && $flag === 1)
+        <script>
         
+        $(document).ready(function(){
+            swal("Welcome");
+        });
+        </script>
+        @endif -->
 @endsection

@@ -45,6 +45,8 @@
         <!-- Core theme JS-->
         <script src="{{asset('js/scripts.js')}}"></script>
 
+        <script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+
         
 </head>
 <body>
@@ -118,6 +120,13 @@
                                 <a class="nav-link">|</a>                                
                             </li>
                             <li class="nav-item">
+                                <a href="{{ route('informasiKeagamaan') }}" class="nav-link js-scroll-trigger">Blog</a>
+                                <span class="caret"></span> 
+                            </li>
+                            <li class="nav-item d-sm-none d-md-block">
+                                <a class="nav-link">|</a>                                
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('forum') }}" class="nav-link js-scroll-trigger">Forum</a>
                                 <span class="caret"></span> 
                             </li>
@@ -161,6 +170,7 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @yield('js')
 </body>
 </html>

@@ -13,11 +13,19 @@
 
 Route::get('/', function () {
     $kegiatan = DB::table('kegiatan')->orderBy('tanggal_kegiatan','desc')->simplePaginate(2);
-    return view('index',['kegiatan' => $kegiatan]);
+    if(Auth::check()){
+        return view('index',['kegiatan' => $kegiatan])->with(['flag'=>1])->with(['nama'=>Auth::user()->nama_anggota]);
+    }else{
+        return view('index',['kegiatan' => $kegiatan]);
+
+    };
 });
+
+
 
 Auth::routes();
 
+Route::get('/profil', 'C_Profil@index')->name('profil');
 
 // guest
 // profil
@@ -41,6 +49,12 @@ Route::get('/masjiddetail/{id}', 'C_Masjid@show')->name('masjiddetail');
 Route::post('/kegiatancreate', 'C_Kegiatan@store')->name('tambahkegiatan');
 Route::post('/kegiatanedit', 'C_Kegiatan@update')->name('updatekegiatan');
 Route::post('/kegiatandestroy', 'C_Kegiatan@destroy')->name('hapuskegiatan');
+//blog
+Route::get('/informasi', 'C_InformasiKeagamaan@index')->name('informasiKeagamaan');
+Route::get('/tambahinformasi', 'C_InformasiKeagamaan@create')->name('tambahinformasiKeagamaan');
+Route::post('/tambahinformasi', 'C_InformasiKeagamaan@store')->name('tambahinformasiKeagamaan');
+Route::get('/detailinformasi/{id}', 'C_InformasiKeagamaan@show')->name('detailinformasiKeagamaan');
+Route::post('/hapusinformasi/{id}', 'C_InformasiKeagamaan@destroy')->name('hapusinformasiKeagamaan');
 
 
 
