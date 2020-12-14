@@ -50,6 +50,19 @@ class C_Donasi extends Controller
         $infaq->save();
         return redirect()->route('infaq');
     }
+    
+    public function storeTakmir(Request $request)
+    {        
+        $infaq=New infaq;
+        $infaq->nama_pengirim=$request->nama_pengirim;
+        $infaq->keterangan=$request->keterangan;
+        $infaq->id_masjid=$request->masjid;
+        $infaq->infaq=$request->infaq;                                                      
+        $infaq->created_at=$request->tanggal;                                                      
+        $infaq->status=2;
+        $infaq->save();
+        return back();
+    }
 
     /**
      * Display the specified resource.
@@ -82,9 +95,17 @@ class C_Donasi extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $id=$_GET['id'];
+        $infaq = infaq::find($id);
+        $infaq->nama_pengirim=$request->nama_pengirim;
+        $infaq->keterangan=$request->keterangan;
+        $infaq->id_masjid=$request->masjid;
+        $infaq->infaq=$request->infaq;                                                      
+        $infaq->created_at=$request->tanggal;
+        $infaq->save();
+        return back();
     }
 
     /**
@@ -93,8 +114,12 @@ class C_Donasi extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        $id=$_GET['id'];
+        $infaq = infaq::find($id);
+        $infaq->delete();
+
+        return back();
     }
 }

@@ -35,6 +35,9 @@ Route::post('/editprofil', 'C_Profil@update')->name('updateprofil');
 Route::get('/infaq', 'C_Donasi@index')->name('infaq');
 Route::get('/infaqcheckout', 'C_Donasi@show')->name('infaqcheckout');
 Route::post('/infaqcheckout', 'C_Donasi@store')->name('infaqcheckout');
+Route::post('/infaqcheckouttakmir', 'C_Donasi@storeTakmir')->name('infaqcheckouttakmir');
+Route::post('/infaqupdate', 'C_Donasi@update')->name('infaqupdate');
+Route::post('/infaqdelete', 'C_Donasi@destroy')->name('infaqdelete');
 // forum
 Route::get('/forum', 'C_Forum@index')->name('forum');
 Route::post('/forumcreate', 'C_Forum@store')->name('tambahforum');
@@ -54,6 +57,8 @@ Route::get('/informasi', 'C_InformasiKeagamaan@index')->name('informasiKeagamaan
 Route::get('/tambahinformasi', 'C_InformasiKeagamaan@create')->name('tambahinformasiKeagamaan');
 Route::post('/tambahinformasi', 'C_InformasiKeagamaan@store')->name('tambahinformasiKeagamaan');
 Route::get('/detailinformasi/{id}', 'C_InformasiKeagamaan@show')->name('detailinformasiKeagamaan');
+Route::get('/editinformasi/{id}', 'C_InformasiKeagamaan@edit')->name('editinformasiKeagamaan');
+Route::post('/editinformasi/{id}', 'C_InformasiKeagamaan@update')->name('editinformasiKeagamaan');
 Route::post('/hapusinformasi/{id}', 'C_InformasiKeagamaan@destroy')->name('hapusinformasiKeagamaan');
 
 

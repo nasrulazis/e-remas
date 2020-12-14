@@ -97,6 +97,13 @@
                                 <a class="nav-link">|</a>                                
                             </li>
                             <li class="nav-item">
+                                <a href="{{ route('informasiKeagamaan') }}" class="nav-link js-scroll-trigger">Blog</a>
+                                <span class="caret"></span> 
+                            </li>
+                            <li class="nav-item d-sm-none d-md-block">
+                                <a class="nav-link">|</a>                                
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('forum') }}" class="nav-link js-scroll-trigger">Forum</a>
                                 <span class="caret"></span> 
                             </li>

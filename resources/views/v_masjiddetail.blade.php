@@ -24,6 +24,11 @@
                                     </div>
 
                                     <h5>Laporan Keuangan</h5>
+                                    @if(Auth::check())
+                                        @if(Auth::user()->role==2)
+                                        <a href="" class="btn btn-primary mb-2" data-toggle="modal" data-target="#tambahModalinfaq">Tambah data keuangan</a>
+                                        @endif
+                                    @endif
                                     @if($infaq->isNotEmpty())
                                     <table class="table m-0">
                                         <thead class="thead-dark">
@@ -33,6 +38,11 @@
                                             <th scope="col">Keterangan</th>
                                             <th scope="col">Jumlah</th>
                                             <th scope="col">Tanggal</th>
+                                            @if(Auth::check())
+                                                @if(Auth::user()->role==2)
+                                                <th scope="col"></th>
+                                                @endif
+                                            @endif
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -40,10 +50,16 @@
                                             <tr>
                                                 <th scope="row">{{$loop->iteration}}</th>
                                                 <td>{{$data->nama_pengirim}}</td>
-                                                <td></td>
+                                                <td>{{$data->keterangan}}</td>
                                                 <td>Rp.{{number_format(floatval($data->infaq))}}</td>
                                                 <td>{{$data->created_at->format('Y-m-d')}}</td>
-                                                
+                                                @if(Auth::check())
+                                                    @if(Auth::user()->role==2)
+                                                    <td> <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModalinfaq{{$data->id}}"><i class="fas fa-trash"></i></a>
+                                                    <!-- data-toggle="modal" data-target="#deleteModal{{$data->id}}" -->
+                                                    <a href="" class="btn btn-primary ml-2" data-toggle="modal" data-target="#editModal{{$data->id}}">Edit</a></td>
+                                                    @endif
+                                                @endif
                                             </tr>                                        
                                             @endforeach
                                         </tbody>
@@ -177,7 +193,7 @@
         @endforeach
         <!-- Modal tambah Kegiatan-->
      <!-- Modal Edit Kegiatan -->
-     @foreach($kegiatan as $key => $data)
+    @foreach($kegiatan as $key => $data)
         <div class="modal fade" id="editModal{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="editModal"
             aria-hidden="true">
             <div class="modal-dialog modal-notify modal-info" role="document">
@@ -249,10 +265,10 @@
                 <!--/.Content-->
             </div>
         </div>
-        @endforeach
+    @endforeach
         <!-- Modal Edit Kegiatan-->
         <!-- Modal Delete Kegiatan-->
-        @foreach($kegiatan as $key => $data)
+    @foreach($kegiatan as $key => $data)
         <div class="modal fade" id="deleteModal{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
             aria-hidden="true">
             <div class="modal-dialog modal-notify modal-info" role="document">
@@ -283,10 +299,190 @@
                 <!--/.Content-->
             </div>
         </div>
+    @endforeach
         <!-- Modal Delete Kegiatan-->
-        @endforeach
-        
-        
+        <!-- Modal tambah Infaq -->
+            <div class="modal fade" id="tambahModalinfaq" tabindex="-1" role="dialog" aria-labelledby="tambahModalinfaq"
+                aria-hidden="true">
+                <div class="modal-dialog modal-notify modal-info" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                        <!--Header-->
+                        <div class="modal-header bg-light">                
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="white-text">&times;</span>
+                            </button>
+                        </div>
 
+                        <!--Body-->
+                        <form class="text-center border border-light px-5 py-2" method="post" action="{{route('infaqcheckouttakmir')}}">
+                        @csrf
+                        <div class="modal-body ">                        
+                                <p class="h4 mb-4">Tambah data keuangan</p>
+                                <div class="form-group mb-4">
+                                            <label class="col-md-12 p-0">Nama Pengirim</label>
+                                            <div class="col-md-12 border-bottom p-0">
+                                                <input type="text" placeholder=""
+                                                    class="form-control p-0 border-0" name="nama_pengirim"> </div>
+                                        </div>
+                                        
+                                        <div class="form-group mb-4">
+                                            <label class="col-md-12 p-0">Jumlah</label>
+                                            <div class="col-md-12 border-bottom p-0">
+                                                <input type="number" class="form-control border-0" name="infaq" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label class="col-md-12 p-0">Masjid</label>
+                                            <div class="col-md-12 border-bottom p-0">
+                                                <select class="form-control" id="masjid" name="masjid">
+                                                    @if(Auth::check())
+                                                    <?php
+                                                        $masjid=App\masjid::where('id',Auth::user()->id_masjid)->get();                                   
+                                                        ?>
+                                                    @foreach($masjid as $key=>$data)
+                                                    <option value="{{$data->id}}" selected>{{$data->nama_masjid}}</option>
+                                                    @endforeach                                          
+                                                    @endif
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label class="col-md-12 p-0">Keterangan</label>
+                                            <div class="col-md-12 border-bottom p-0">
+                                                <input type="text" class="form-control border-0" name="keterangan" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label class="col-md-12 p-0">Tanggal</label>
+                                            <div class="col-md-12 border-bottom p-0">
+                                                <input type="date" class="form-control border-0" name="tanggal" >
+                                            </div>
+                                        </div>
+                                        
+                                        
+                        </div>
+
+                        <!--Footer-->
+                        <div class="modal-footer justify-content-center ">
+                            <input type="submit" class="btn btn-primary" value="Kirim">                        
+                            <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Batal</a>
+                        </div>
+                        </form>
+                    </div>
+                    <!--/.Content-->
+                </div>
+            </div>
+        <!-- Modal tambah infaq-->
+        <!-- Modal Delete infaq-->
+    @foreach($infaq as $key => $data)
+        <div class="modal fade" id="deleteModalinfaq{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalinfaq"
+            aria-hidden="true">
+            <div class="modal-dialog modal-notify modal-info" role="document">
+                <!--Content-->
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header bg-light">                
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                        </button>
+                    </div>
+
+                    <!--Body-->
+                    <form class="text-center border border-light px-5 py-2" method="post" action="{{route('infaqdelete')}}?id={{$data->id}}">
+                    @csrf
+                    <div class="modal-body ">
+                            <p class="h4 mb-4">Hapus</p>
+                            <!-- Name -->
+                            <p>Yakin Akan Menghapus data Infaq?</p>
+                    </div>
+                    <!--Footer-->
+                    <div class="modal-footer justify-content-center ">
+                        <input type="submit" class="btn btn-danger" value="Hapus">                        
+                        <a type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Batal</a>
+                    </div>
+                    </form>
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+    @endforeach
+        <!-- /Modal Delete Infaq-->
+
+        <!-- Modal edit Infaq -->
+    @foreach($infaq as $key => $data)
+        <div class="modal fade" id="editModal{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="tambahModalinfaq"
+                aria-hidden="true">
+                <div class="modal-dialog modal-notify modal-info" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                        <!--Header-->
+                        <div class="modal-header bg-light">                
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="white-text">&times;</span>
+                            </button>
+                        </div>
+
+                        <!--Body-->
+                        <form class="text-center border border-light px-5 py-2" method="post" action="{{route('infaqupdate')}}?id={{$data->id}}">
+                        @csrf
+                        <div class="modal-body ">                        
+                                <p class="h4 mb-4">Edit data keuangan</p>
+                                <div class="form-group mb-4">
+                                            <label class="col-md-12 p-0">Nama Pengirim</label>
+                                            <div class="col-md-12 border-bottom p-0">
+                                                <input type="text" placeholder=""
+                                                    class="form-control p-0 border-0" name="nama_pengirim" value="{{$data->nama_pengirim}}"> </div>
+                                        </div>
+                                        
+                                        <div class="form-group mb-4">
+                                            <label class="col-md-12 p-0">Jumlah</label>
+                                            <div class="col-md-12 border-bottom p-0">
+                                                <input type="number" class="form-control border-0" name="infaq" value="{{$data->infaq}}" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label class="col-md-12 p-0">Masjid</label>
+                                            <div class="col-md-12 border-bottom p-0">
+                                                <select class="form-control" id="masjid" name="masjid">
+                                                    @if(Auth::check())
+                                                    <?php
+                                                        $masjid=App\masjid::where('id',Auth::user()->id_masjid)->get();                                   
+                                                        ?>
+                                                    @foreach($masjid as $key=>$masjid)
+                                                    <option value="{{$masjid->id}}" selected>{{$masjid->nama_masjid}}</option>
+                                                    @endforeach                                          
+                                                    @endif
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label class="col-md-12 p-0">Keterangan</label>
+                                            <div class="col-md-12 border-bottom p-0">
+                                                <input type="text" class="form-control border-0" name="keterangan" value="{{$data->keterangan}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label class="col-md-12 p-0">Tanggal</label>
+                                            <div class="col-md-12 border-bottom p-0">
+                                                <input type="date" class="form-control border-0" name="tanggal" value="{{$data->created_at->format('m-d-Y')}}">
+                                            </div>
+                                        </div>
+                                        
+                                        
+                        </div>
+
+                        <!--Footer-->
+                        <div class="modal-footer justify-content-center ">
+                            <input type="submit" class="btn btn-primary" value="Kirim">                        
+                            <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Batal</a>
+                        </div>
+                        </form>
+                    </div>
+                    <!--/.Content-->
+                </div>
+            </div>
+        <!-- Modal edit infaq-->
+    @endforeach
         
 @endsection

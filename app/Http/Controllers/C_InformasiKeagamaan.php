@@ -37,11 +37,11 @@ class C_InformasiKeagamaan extends Controller
      */
     public function store(Request $request)
     {
-        $informasiKegiatan=New informasi_keagamaan;
-        $informasiKegiatan->judul=$request->judul;
-        $informasiKegiatan->deskripsi=$request->deskripsi;
-        $informasiKegiatan->id_anggota=Auth::user()->id_anggota;
-        $informasiKegiatan->save();
+        $informasiKeagamaan=New informasi_keagamaan;
+        $informasiKeagamaan->judul=$request->judul;
+        $informasiKeagamaan->deskripsi=$request->deskripsi;
+        $informasiKeagamaan->id_anggota=Auth::user()->id_anggota;
+        $informasiKeagamaan->save();
         return redirect()->route('informasiKeagamaan')->with(['flag'=>1]);
         
     }
@@ -67,7 +67,8 @@ class C_InformasiKeagamaan extends Controller
      */
     public function edit($id)
     {
-        //
+        $informasiKeagamaan=informasi_keagamaan::where('id',$id)->get();
+        return view('v_editinformasiKeagamaan',compact('informasiKeagamaan'));
     }
 
     /**
@@ -79,7 +80,11 @@ class C_InformasiKeagamaan extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $informasiKeagamaan = informasi_keagamaan::find($id);
+        $informasiKeagamaan->judul=$request->judul;
+        $informasiKeagamaan->deskripsi=$request->deskripsi;
+        $informasiKeagamaan->save();
+        return redirect()->route('informasiKeagamaan')->with(['flag'=>1]);
     }
 
     /**

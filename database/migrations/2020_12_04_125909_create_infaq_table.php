@@ -19,6 +19,7 @@ class CreateInfaqTable extends Migration
             $table->integer('id_masjid');
             $table->integer('infaq');
             $table->string('bukti_pembayaran')->nullable();
+            $table->string('keterangan')->nullable();
             $table->integer('status');
             $table->timestamps();
         });

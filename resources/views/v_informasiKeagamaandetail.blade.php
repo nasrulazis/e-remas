@@ -21,9 +21,11 @@
 
                         <div class="card text-dark my-3 border">
                             <div class="card-header bg-light text-primary d-flex justify-content-end">
-                            @if(Auth::user()->id_anggota==$data->id_anggota)
-                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$data->id}}"><i class="fas fa-trash"></i></a>
-                                <a href="" class="btn btn-primary ml-2">Edit</a>
+                            @if(Auth::check())
+                                @if(Auth::user()->id_anggota==$data->id_anggota)
+                                    <a href="" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$data->id}}"><i class="fas fa-trash"></i></a>
+                                    <a href="{{route('editinformasiKeagamaan',$data->id)}}" class="btn btn-primary ml-2">Edit</a>
+                                @endif
                             @endif
                             </div>
                             <div class="card-body d-flex flex-column justify-content-between">
