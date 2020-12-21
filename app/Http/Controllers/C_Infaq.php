@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\masjid;
 use App\infaq;
+use Illuminate\Support\Facades\Validator;
 
-class C_Donasi extends Controller
+class C_Infaq extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,9 +38,16 @@ class C_Donasi extends Controller
      */
     public function store(Request $request)
     {        
+        $validator = Validator::make($request->all(), [
+            'image' => 'image|mimes:jpeg,jpg,png',
+            ]);
+        if ($validator->fails()) {
+            alert()->error('','File harus dalam format JPG,JPEG atau PNG');
+            return back();
+        }
         $infaq=New infaq;
         $infaq->nama_pengirim=$request->nama_pengirim;
-        $infaq->masjid=$request->masjid;
+        $infaq->id_masjid=$request->masjid;
         $infaq->infaq=$request->jumlah;
         $file=$request->file('image');
         $filename=time().'.'.$file->getClientOriginalExtension();
@@ -47,12 +55,14 @@ class C_Donasi extends Controller
         $file->move($location,$filename);
         $infaq->bukti_pembayaran=$filename;                                                        
         $infaq->status=1;
+        $infaq->jenis=1;
         $infaq->save();
-        return redirect()->route('infaq');
+        return redirect()->route('infaq')->withSuccess('Data berhasil ditambah!');;
     }
     
     public function storeTakmir(Request $request)
     {        
+        $jenis=$_GET['jenis'];
         $infaq=New infaq;
         $infaq->nama_pengirim=$request->nama_pengirim;
         $infaq->keterangan=$request->keterangan;
@@ -60,10 +70,11 @@ class C_Donasi extends Controller
         $infaq->infaq=$request->infaq;                                                      
         $infaq->created_at=$request->tanggal;                                                      
         $infaq->status=2;
+        $infaq->jenis=$jenis;
         $infaq->save();
-        return back();
+        return back()->withSuccess('Data berhasil ditambah!');;
     }
-
+    
     /**
      * Display the specified resource.
      *
@@ -105,7 +116,7 @@ class C_Donasi extends Controller
         $infaq->infaq=$request->infaq;                                                      
         $infaq->created_at=$request->tanggal;
         $infaq->save();
-        return back();
+        return back()->withSuccess('Data berhasil diubah!');;
     }
 
     /**
@@ -120,6 +131,6 @@ class C_Donasi extends Controller
         $infaq = infaq::find($id);
         $infaq->delete();
 
-        return back();
+        return back()->withSuccess('Data berhasil dihapus!');;
     }
 }

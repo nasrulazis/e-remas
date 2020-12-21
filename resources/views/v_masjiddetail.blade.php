@@ -26,7 +26,7 @@
                                     <h5>Laporan Keuangan</h5>
                                     @if(Auth::check())
                                         @if(Auth::user()->role==2)
-                                        <a href="" class="btn btn-primary mb-2" data-toggle="modal" data-target="#tambahModalinfaq">Tambah data keuangan</a>
+                                        <a href="" class="btn btn-primary mb-2" data-toggle="modal" data-target="#pilihjenis">Tambah data keuangan</a>
                                         @endif
                                     @endif
                                     @if($infaq->isNotEmpty())
@@ -46,13 +46,25 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($infaq as $key=>$data)
+                                        <?php
+                                        $total=0;
+                                        ?>
+                                            @foreach($infaq as $key=>$infaqs)
+                                            
                                             <tr>
                                                 <th scope="row">{{$loop->iteration}}</th>
-                                                <td>{{$data->nama_pengirim}}</td>
-                                                <td>{{$data->keterangan}}</td>
-                                                <td>Rp.{{number_format(floatval($data->infaq))}}</td>
-                                                <td>{{$data->created_at->format('Y-m-d')}}</td>
+                                                <td>{{$infaqs->nama_pengirim}}</td>
+                                                <td>{{$infaqs->keterangan}}</td>
+                                                @if($infaqs->jenis==1)
+                                                <?php $total+=$infaqs->infaq; ?>
+                                                <td>Rp.{{number_format(floatval($infaqs->infaq))}}</td>
+                                                @elseif($infaqs->jenis==2)
+                                                <?php $total-=$infaqs->infaq; ?>
+                                                <td>-Rp.{{number_format(floatval($infaqs->infaq))}}</td>
+                                                @else
+                                                @endif
+
+                                                <td>{{$infaqs->created_at->format('Y-m-d')}}</td>
                                                 @if(Auth::check())
                                                     @if(Auth::user()->role==2)
                                                     <td> <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModalinfaq{{$data->id}}"><i class="fas fa-trash"></i></a>
@@ -62,6 +74,17 @@
                                                 @endif
                                             </tr>                                        
                                             @endforeach
+                                            <tr>
+                                                <td>Total</td>
+                                                <td></td>
+                                                <td></td>
+                                                @if($total<=0)
+                                                <?php $total=$total*(-1); ?>
+                                                <td>-Rp.{{number_format(floatval($total))}}</td>
+                                                @else
+                                                <td>Rp.{{number_format(floatval($total))}}</td>
+                                                @endif
+                                            </tr>
                                         </tbody>
                                     </table>
                                     @else
@@ -232,8 +255,8 @@
                                                 <?php
                                                     $masjid=App\masjid::where('id',Auth::user()->id_masjid)->get();                                   
                                                 ?>
-                                                @foreach($masjid as $key=>$data)
-                                                <option value="{{$data->id}}" selected>{{$data->nama_masjid}}</option>
+                                                @foreach($masjid as $key=>$masjids)
+                                                <option value="{{$data->id}}" selected>{{$masjids->nama_masjid}}</option>
                                                 @endforeach                                           
                                                 @endif
                                             </select>
@@ -301,7 +324,8 @@
         </div>
     @endforeach
         <!-- Modal Delete Kegiatan-->
-        <!-- Modal tambah Infaq -->
+
+        <!-- Modal tambah Infaq pemasukan-->
             <div class="modal fade" id="tambahModalinfaq" tabindex="-1" role="dialog" aria-labelledby="tambahModalinfaq"
                 aria-hidden="true">
                 <div class="modal-dialog modal-notify modal-info" role="document">
@@ -315,12 +339,12 @@
                         </div>
 
                         <!--Body-->
-                        <form class="text-center border border-light px-5 py-2" method="post" action="{{route('infaqcheckouttakmir')}}">
+                        <form class="text-center border border-light px-5 py-2" method="post" action="{{route('infaqcheckouttakmir')}}?jenis=1">
                         @csrf
                         <div class="modal-body ">                        
-                                <p class="h4 mb-4">Tambah data keuangan</p>
+                                <p class="h4 mb-4">Tambah pemasukan</p>
                                 <div class="form-group mb-4">
-                                            <label class="col-md-12 p-0">Nama Pengirim</label>
+                                            <label class="col-md-12 p-0">Nama</label>
                                             <div class="col-md-12 border-bottom p-0">
                                                 <input type="text" placeholder=""
                                                     class="form-control p-0 border-0" name="nama_pengirim"> </div>
@@ -373,7 +397,81 @@
                     <!--/.Content-->
                 </div>
             </div>
-        <!-- Modal tambah infaq-->
+        <!-- Modal tambah infaq pemasukan-->
+        <!-- Modal tambah Infaq pengeluaran-->
+            <div class="modal fade" id="tambahModalinfaqpengeluaran" tabindex="-1" role="dialog" aria-labelledby="tambahModalinfaqpengeluaran"
+                aria-hidden="true">
+                <div class="modal-dialog modal-notify modal-info" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                        <!--Header-->
+                        <div class="modal-header bg-light">                
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="white-text">&times;</span>
+                            </button>
+                        </div>
+
+                        <!--Body-->
+                        <form class="text-center border border-light px-5 py-2" method="post" action="{{route('infaqcheckouttakmir')}}?jenis=2">
+                        @csrf
+                        <div class="modal-body ">                        
+                                <p class="h4 mb-4">Tambah Pengeluaran</p>
+                                <div class="form-group mb-4">
+                                            <label class="col-md-12 p-0">Nama</label>
+                                            <div class="col-md-12 border-bottom p-0">
+                                                <input type="text" placeholder=""
+                                                    class="form-control p-0 border-0" name="nama_pengirim"> </div>
+                                        </div>
+                                        
+                                        <div class="form-group mb-4">
+                                            <label class="col-md-12 p-0">Jumlah</label>
+                                            <div class="col-md-12 border-bottom p-0">
+                                                <input type="number" class="form-control border-0" name="infaq" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label class="col-md-12 p-0">Masjid</label>
+                                            <div class="col-md-12 border-bottom p-0">
+                                                <select class="form-control" id="masjid" name="masjid">
+                                                    @if(Auth::check())
+                                                    <?php
+                                                        $masjid=App\masjid::where('id',Auth::user()->id_masjid)->get();                                   
+                                                        ?>
+                                                    @foreach($masjid as $key=>$data)
+                                                    <option value="{{$data->id}}" selected>{{$data->nama_masjid}}</option>
+                                                    @endforeach                                          
+                                                    @endif
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label class="col-md-12 p-0">Keterangan</label>
+                                            <div class="col-md-12 border-bottom p-0">
+                                                <input type="text" class="form-control border-0" name="keterangan" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label class="col-md-12 p-0">Tanggal</label>
+                                            <div class="col-md-12 border-bottom p-0">
+                                                <input type="date" class="form-control border-0" name="tanggal" >
+                                            </div>
+                                        </div>
+                                        
+                                        
+                        </div>
+
+                        <!--Footer-->
+                        <div class="modal-footer justify-content-center ">
+                            <input type="submit" class="btn btn-primary" value="Kirim">                        
+                            <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Batal</a>
+                        </div>
+                        </form>
+                    </div>
+                    <!--/.Content-->
+                </div>
+            </div>
+        <!-- Modal tambah infaq pengeluaran-->
+
         <!-- Modal Delete infaq-->
     @foreach($infaq as $key => $data)
         <div class="modal fade" id="deleteModalinfaq{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalinfaq"
@@ -408,6 +506,31 @@
         </div>
     @endforeach
         <!-- /Modal Delete Infaq-->
+
+        <!-- Modal pilih kategori infaq-->
+        <div class="modal fade" id="pilihjenis" tabindex="-1" role="dialog" aria-labelledby="pilihjenis" aria-hidden="true">
+            <div class="modal-dialog modal-notify modal-info" role="document">
+                <!--Content-->
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header bg-light">                
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                        </button>
+                    </div>
+
+                    <!--Body-->
+                    <div class="modal-body text-center">
+                    <h3>Pilih data keuangan</h3>
+                            <button class="btn btn-dark" data-toggle="modal" data-target="#tambahModalinfaq" data-dismiss="modal">Pemasukan</button>
+                            <button class="btn btn-dark" data-toggle="modal" data-target="#tambahModalinfaqpengeluaran" data-dismiss="modal">Pengeluaran</button>
+                    </div>
+                    
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+        <!-- /Modal pilih kategori Infaq-->
 
         <!-- Modal edit Infaq -->
     @foreach($infaq as $key => $data)
@@ -465,7 +588,7 @@
                                         <div class="form-group mb-4">
                                             <label class="col-md-12 p-0">Tanggal</label>
                                             <div class="col-md-12 border-bottom p-0">
-                                                <input type="date" class="form-control border-0" name="tanggal" value="{{$data->created_at->format('m-d-Y')}}">
+                                                <input type="date" class="form-control border-0" name="tanggal" value="{{$data->created_at->format('Y-m-d')}}">
                                             </div>
                                         </div>
                                         

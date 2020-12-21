@@ -13,12 +13,7 @@
 
 Route::get('/', function () {
     $kegiatan = DB::table('kegiatan')->orderBy('tanggal_kegiatan','desc')->simplePaginate(2);
-    if(Auth::check()){
-        return view('index',['kegiatan' => $kegiatan])->with(['flag'=>1])->with(['nama'=>Auth::user()->nama_anggota]);
-    }else{
         return view('index',['kegiatan' => $kegiatan]);
-
-    };
 });
 
 
@@ -32,12 +27,12 @@ Route::get('/profil', 'C_Profil@index')->name('profil');
 Route::get('/profil', 'C_Profil@index')->name('profil');
 Route::get('/editprofil', 'C_Profil@edit')->name('editprofil');
 Route::post('/editprofil', 'C_Profil@update')->name('updateprofil');
-Route::get('/infaq', 'C_Donasi@index')->name('infaq');
-Route::get('/infaqcheckout', 'C_Donasi@show')->name('infaqcheckout');
-Route::post('/infaqcheckout', 'C_Donasi@store')->name('infaqcheckout');
-Route::post('/infaqcheckouttakmir', 'C_Donasi@storeTakmir')->name('infaqcheckouttakmir');
-Route::post('/infaqupdate', 'C_Donasi@update')->name('infaqupdate');
-Route::post('/infaqdelete', 'C_Donasi@destroy')->name('infaqdelete');
+Route::get('/infaq', 'C_Infaq@index')->name('infaq');
+Route::get('/infaqcheckout', 'C_Infaq@show')->name('infaqcheckout');
+Route::post('/infaqcheckout', 'C_Infaq@store')->name('infaqcheckout');
+Route::post('/infaqcheckouttakmir', 'C_Infaq@storeTakmir')->name('infaqcheckouttakmir');
+Route::post('/infaqupdate', 'C_Infaq@update')->name('infaqupdate');
+Route::post('/infaqdelete', 'C_Infaq@destroy')->name('infaqdelete');
 // forum
 Route::get('/forum', 'C_Forum@index')->name('forum');
 Route::post('/forumcreate', 'C_Forum@store')->name('tambahforum');

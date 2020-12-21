@@ -15,7 +15,7 @@ class C_InformasiKeagamaan extends Controller
      */
     public function index()
     {
-        $informasiKeagamaan=informasi_keagamaan::all();
+        $informasiKeagamaan=informasi_keagamaan::orderBy('updated_at', 'desc')->get();
         return view('v_informasiKeagamaan',compact('informasiKeagamaan'));
     }
 
@@ -42,7 +42,7 @@ class C_InformasiKeagamaan extends Controller
         $informasiKeagamaan->deskripsi=$request->deskripsi;
         $informasiKeagamaan->id_anggota=Auth::user()->id_anggota;
         $informasiKeagamaan->save();
-        return redirect()->route('informasiKeagamaan')->with(['flag'=>1]);
+        return redirect()->route('informasiKeagamaan')->withSuccess('Data berhasil ditambah!');
         
     }
     
@@ -84,7 +84,7 @@ class C_InformasiKeagamaan extends Controller
         $informasiKeagamaan->judul=$request->judul;
         $informasiKeagamaan->deskripsi=$request->deskripsi;
         $informasiKeagamaan->save();
-        return redirect()->route('informasiKeagamaan')->with(['flag'=>1]);
+        return redirect()->route('informasiKeagamaan')->withSuccess('Data berhasil diubah!');
     }
 
     /**
@@ -98,6 +98,6 @@ class C_InformasiKeagamaan extends Controller
         $informasiKeagamaan = informasi_keagamaan::find($id);
         $informasiKeagamaan->delete();
 
-        return redirect()->route('informasiKeagamaan')->with(['flag'=>2]);
+        return redirect()->route('informasiKeagamaan')->withSuccess('Data berhasil dihapus!');
     }
 }

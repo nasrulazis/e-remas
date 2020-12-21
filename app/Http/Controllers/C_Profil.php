@@ -81,7 +81,7 @@ class C_Profil extends Controller
             'alamat' => $request['alamat'],
             'no_hp'=> $request['no_hp'],
         ]);
-        return redirect()->route('profil');
+        return redirect()->route('profil')->withSuccess('Data berhasil diubah!');;
     }
 
     /**

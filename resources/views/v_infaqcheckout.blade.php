@@ -51,7 +51,7 @@
                                                     <span>Infaq Masjid</span><span>Rp.{{number_format(floatval($jumlah))}}</span>
                                                     </div>
                                                     <div class="d-flex col-12 justify-content-between text-secondary" >
-                                                    <span>Biaya Pengelolaan</span><span>Rp.{{number_format(floatval(2000))}} <a href=""  data-toggle="modal" data-target=".bd-example-modal-sm" class="text-secondary"><i class="fas fa-info-circle"></i></a></span>
+                                                    <span>Biaya Pengelolaan</span><span>Rp.{{number_format(floatval(1000))}} <a href=""  data-toggle="modal" data-target=".bd-example-modal-sm" class="text-secondary"><i class="fas fa-info-circle"></i></a></span>
                                                     </div>
                                                     
                                                     
@@ -59,12 +59,12 @@
                                                     <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-sm">
                                                         <div class="modal-content">
-                                                        <p class="m-2">*Biaya operasional misi kebaikan sebesar Rp{{number_format(floatval(2000))}}.</p>
+                                                        <p class="m-2">*Biaya operasional misi kebaikan sebesar Rp{{number_format(floatval(1000))}}.</p>
                                                         </div>
                                                     </div>
                                                     </div>
                                                     <div class="d-flex col-12 justify-content-between">                                                
-                                                    <h5>Total</h5><h5>Rp.{{number_format(floatval($jumlah+2000))}}</h5>
+                                                    <h5>Total</h5><h5>Rp.{{number_format(floatval($jumlah+1000))}}</h5>
                                                     </div>
 
                                                     

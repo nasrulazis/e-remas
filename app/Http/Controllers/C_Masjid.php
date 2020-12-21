@@ -51,7 +51,7 @@ class C_Masjid extends Controller
     {
         $kegiatan=kegiatan::where('id_masjid',$id)->get();        
         $masjid=masjid::where('id',$id)->get();
-        $infaq=infaq::where('id_masjid',$id)->where('status',2)->get();
+        $infaq=infaq::where('id_masjid',$id)->where('status',2)->orderBy('created_at', 'desc')->get();
         return view('v_masjiddetail',compact('masjid','kegiatan','infaq'));
     }
 

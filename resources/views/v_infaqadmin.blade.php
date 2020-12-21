@@ -59,7 +59,7 @@
                                 <th scope="row">{{$loop->iteration}}</th>
                                 <td>{{$data->nama_pengirim}}</td>
                                 <?php
-                                $masjid=App\masjid::where('id',$data->masjid)->first();
+                                $masjid=App\masjid::where('id',$data->id_masjid)->first();
 
                                 ?>
                                 <td>{{$masjid->nama_masjid}}</td>

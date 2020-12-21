@@ -46,7 +46,7 @@ class C_Kegiatan extends Controller
             'id_masjid'=> $request['masjid'],
             'waktu_kegiatan'=> $request['waktu_kegiatan'],
         ]);
-        return back();
+        return back()->withSuccess('Data berhasil ditambah!');
     }
 
     /**
@@ -88,7 +88,7 @@ class C_Kegiatan extends Controller
             'id_masjid'=> $request['masjid'],
             'waktu_kegiatan'=> $request['waktu_kegiatan'],
         ]);
-        return back();
+        return back()->withSuccess('Data berhasil diubah!');;
     }
 
     /**
@@ -101,6 +101,6 @@ class C_Kegiatan extends Controller
     {
         $id=$_GET['id'];
         kegiatan::destroy(array($id));
-        return back();
+        return back()->withSuccess('Data berhasil dihapus!');;
     }
 }

@@ -49,7 +49,7 @@ class C_Forum extends Controller
         $forums->deskripsi = $request->deskripsi;
         $forums->save();
         $forums->tags()->sync($request->tags);
-        return back();
+        return back()->withSuccess('Forum berhasil ditambah!');;
         
         
     }
@@ -96,7 +96,7 @@ class C_Forum extends Controller
         $forums->deskripsi = $request->deskripsi;
         $forums->save();
 
-        return back();
+        return back()->withSuccess('Data berhasil di update!');;
     }
 
     /**
@@ -110,6 +110,6 @@ class C_Forum extends Controller
         $forums = forum::find($id);
         $forums->delete();
 
-        return back();
+        return back()->withSuccess('Data berhasil dihapus');;
     }
 }

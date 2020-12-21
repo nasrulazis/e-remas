@@ -21,6 +21,7 @@ class CreateInfaqTable extends Migration
             $table->string('bukti_pembayaran')->nullable();
             $table->string('keterangan')->nullable();
             $table->integer('status');
+            $table->integer('jenis');
             $table->timestamps();
         });
     }
