@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\kegiatan;
+use Illuminate\Support\Facades\Validator;
 
 class C_Kegiatan extends Controller
 {
@@ -39,6 +40,17 @@ class C_Kegiatan extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'nama_kegiatan' => 'required',
+            'tanggal_kegiatan' => 'required',
+            'deskripsi_kegiatan' => 'required',
+            'masjid' => 'required',
+            'waktu_kegiatan' => 'required',
+            ]);
+        if ($validator->fails()) {
+            alert()->error('','Data Tidak Boleh Kosong');
+            return back();
+        }
         kegiatan::create([
             'nama_kegiatan' => $request['nama_kegiatan'],
             'tanggal_kegiatan' => $request['tanggal_kegiatan'],
@@ -80,6 +92,17 @@ class C_Kegiatan extends Controller
      */
     public function update(Request $request)
     {        
+        $validator = Validator::make($request->all(), [
+            'nama_kegiatan' => 'required',
+            'tanggal_kegiatan' => 'required',
+            'deskripsi_kegiatan' => 'required',
+            'masjid' => 'required',
+            'waktu_kegiatan' => 'required',
+            ]);
+        if ($validator->fails()) {
+            alert()->error('','Data Tidak Boleh Kosong');
+            return back();
+        }
         $id=$_GET['id'];
         kegiatan::where('id_kegiatan',$id)->update([
             'nama_kegiatan' => $request['nama_kegiatan'],
